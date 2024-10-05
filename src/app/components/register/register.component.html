@@ -1,0 +1,78 @@
+<div class="container my-5">
+  <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()" >
+
+
+    <div class="mb-3">
+      <label for="name" class="form-label fw-bold">name</label>
+      <input formControlName="name" type="text" class="form-control" id="name" placeholder="salma">
+      @if (registerForm.get('name')?.errors && (registerForm.get('name')?.touched ||registerForm.get('name')?.dirty)) {
+        <div class="mt-1 text-danger fs-6 ">
+          @if (registerForm.get('name')?.getError('required')) {
+            <p>your name is required</p>
+          }@else if(registerForm.get('name')?.getError('minlength')){
+            <p>name must be more than or equal to 3 char</p>
+          }
+          @else if(registerForm.get('name')?.getError('maxlength')){
+            <p>name must be less than or equal to 20 char</p>
+          }
+        </div>
+      }
+
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label fw-bold">Email address</label>
+      <input formControlName="email" type="email" class="form-control" id="email" placeholder="name@example.com">
+      @if (registerForm.get('email')?.errors && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)) {
+        <div class="mt-1 text-danger fs-6">
+            @if (registerForm.get('email')?.getError('required')) {
+              <p>your Email is required</p>
+            }@else if(registerForm.get('email')?.getError('email')){
+              <p>please enter valid email</p>
+            }
+        </div>
+      }
+
+    </div>
+
+    <div class="mb-3">
+      <label for="phone" class="form-label fw-bold">phone </label>
+      <input formControlName="phone" type="tel" class="form-control" id="phone" placeholder="111-222-4567">
+      @if (registerForm.get('phone')?.errors && (registerForm.get('phone')?.touched||registerForm.get('phone')?.dirty)) {
+        <div class="mt-1 text-danger fs-6">
+          @if (registerForm.get('phone')?.getError('required')) {
+            <p>
+              your phone is required
+            </p>
+          }@else if(registerForm.get('phone')?.getError('pattern')){
+            <p>please enter a vaild egyption number</p>
+          }
+        </div>
+      }
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label fw-bold">Password</label>
+      <div class="input-group">
+        <input
+          formControlName="password"
+          [type]="isPasswordVisible ? 'text' : 'password'"
+          class="form-control"
+          id="password"
+          placeholder="Enter your password">
+        <span style="cursor: pointer;" class="input-group-text" (click)="togglePasswordVisibility()">
+          <i [ngClass]="isPasswordVisible ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+        </span>
+      </div>
+      @if(registerForm.get('password')?.errors && ( registerForm.get('password')?.dirty)){
+        <div class="mt-1 text-danger fs-6">
+          @if (registerForm.get('password')?.getError('required')) {
+            <p>Your password is required</p>
+
+          }
+
+        </div>
+      }
+    </div>
+
+    <button type="submit" class="btn btn-outline-primary"> register</button>
+  </form>
+</div>

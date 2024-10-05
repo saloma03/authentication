@@ -1,0 +1,46 @@
+<div class="container my-5">
+  <form  [formGroup]="loginForm"  (ngSubmit)="loginSubmit()" >
+    <div class="mb-3">
+      <label for="email" class="form-label fw-bold">Email address</label>
+      <input formControlName="email" type="email" class="form-control" id="email" placeholder="name@example.com">
+      @if (loginForm.get('email')?.errors && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)) {
+        <div class="mt-1 text-danger fs-6">
+            @if (loginForm.get('email')?.getError('required')) {
+              <p>{{"your Email is required" }}</p>
+            }@else if(loginForm.get('email')?.getError('email')){
+              <p>{{"please enter valid email" }}</p>
+            }
+        </div>
+      }
+    </div>
+
+
+
+    <div class="mb-3">
+      <label for="password" class="form-label fw-bold">Password</label>
+      <div class="input-group">
+        <input
+          formControlName="password"
+          [type]="isPasswordVisible ? 'text' : 'password'"
+          class="form-control"
+          id="password"
+          placeholder="Enter your password">
+        <span style="cursor: pointer;" class="input-group-text" (click)="togglePasswordVisibility()">
+          <i [ngClass]="isPasswordVisible ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+        </span>
+      </div>
+      @if(loginForm.get('password')?.errors && ( loginForm.get('password')?.dirty)){
+        <div class="mt-1 text-danger fs-6">
+          @if (loginForm.get('password')?.getError('required')) {
+            <p>Your password is required</p>
+
+          }
+
+        </div>
+      }
+    </div>
+
+
+    <button type="submit" class="btn btn-outline-primary"> submit</button>
+  </form>
+</div>
